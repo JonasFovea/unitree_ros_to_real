@@ -12,16 +12,27 @@
 
 using namespace UNITREE_LEGGED_SDK;
 
+/**
+ * Callback function to print the yaw from a given high state
+ * @param msg given high state message
+ */
 void highStateCallback(const unitree_legged_msgs::HighState::ConstPtr &msg)
 {
     printf("yaw = %f\n", msg->imu.rpy[2]);
 }
 
+/**
+ * Function to print the FR_2_pos from a given low state
+ * @param msg given low state message
+ */
 void lowStateCallback(const unitree_legged_msgs::LowState::ConstPtr &msg)
 {
     printf("FR_2_pos = %f\n", msg->motorState[FR_2].q);
 }
 
+/**
+ * Function to connect subscribers to the high and low states and print some values
+ */
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "node_high_state_sub");
