@@ -19,6 +19,10 @@ Use of this source code is governed by the MPL-2.0 license, see LICENSE.
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 
+/*
+ * These Functions convert between different ROS messages and internal states or commands
+ */
+
 UNITREE_LEGGED_SDK::BmsCmd rosMsg2Cmd(const unitree_legged_msgs::BmsCmd &msg)
 {
     UNITREE_LEGGED_SDK::BmsCmd cmd;
