@@ -10,6 +10,10 @@
 #include <geometry_msgs/Twist.h>
 
 using namespace UNITREE_LEGGED_SDK;
+
+/**
+ * see DOC in ros_udp.cpp
+ */
 class Custom
 {
 public:
@@ -69,6 +73,10 @@ ros::Publisher pub_high;
 
 long cmd_vel_count = 0;
 
+/**
+ * Callback function to convert from twist messages to high command messages
+ * @param msg incomming twist message
+ */
 void cmdVelCallback(const geometry_msgs::Twist::ConstPtr &msg)
 {
     printf("cmdVelCallback is running!\t%ld\n", cmd_vel_count);
@@ -88,6 +96,12 @@ void cmdVelCallback(const geometry_msgs::Twist::ConstPtr &msg)
     printf("cmdVelCallback ending!\t%ld\n\n", cmd_vel_count++);
 }
 
+/**
+ * Function to start the conversion between twist messages on cmd_vel and udp high commands
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "twist_sub");
