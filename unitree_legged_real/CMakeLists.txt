@@ -7,7 +7,6 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     geometry_msgs
     unitree_legged_msgs
-    unitree_legged_sdk
 )
 
 catkin_package()
@@ -31,6 +30,7 @@ include_directories(
     include
     ${catkin_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/unitree_legged_sdk-master/include
+    ${CMAKE_SOURCE_DIR}/../../unitree_legged_sdk/include/unitree_legged_sdk
 )
 
 
