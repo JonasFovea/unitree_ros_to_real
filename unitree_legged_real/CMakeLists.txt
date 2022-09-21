@@ -30,7 +30,7 @@ include_directories(
     include
     ${catkin_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/unitree_legged_sdk-master/include
-    ~/catkin_ws/src/unitree_legged_sdk/include/unitree_legged_sdk
+    /root/catkin_ws/src/unitree_legged_sdk/include/unitree_legged_sdk
 )
 
 
