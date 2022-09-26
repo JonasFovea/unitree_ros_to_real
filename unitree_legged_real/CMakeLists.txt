@@ -24,7 +24,7 @@ link_directories(/home/$ENV{USER}/Robot_SDK/unitree_legged_sdk/lib)
 string(CONCAT LEGGED_SDK_NAME libunitree_legged_sdk_amd64.so)
 set(EXTRA_LIBS ${LEGGED_SDK_NAME} lcm)
 
-add_executable(lcm_server /home/$ENV{USER}/Robot_SDK/unitree_legged_sdk/examples/lcm_server.cpp)
+add_executable(lcm_server ~/unitree_legged_sdk/examples/lcm_server.cpp)
 target_link_libraries(lcm_server ${EXTRA_LIBS} ${catkin_LIBRARIES})
 add_dependencies(lcm_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
