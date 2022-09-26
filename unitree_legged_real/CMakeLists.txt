@@ -19,8 +19,8 @@ include_directories(
 
 set(CMAKE_CXX_FLAGS "-O3")
 
-include_directories(/home/$ENV{USER}/Robot_SDK/unitree_legged_sdk/include)
-link_directories(/home/$ENV{USER}/Robot_SDK/unitree_legged_sdk/lib)
+include_directories(~/unitree_legged_sdk/include)
+link_directories(~/unitree_legged_sdk/lib)
 string(CONCAT LEGGED_SDK_NAME libunitree_legged_sdk_amd64.so)
 set(EXTRA_LIBS ${LEGGED_SDK_NAME} lcm)
 
