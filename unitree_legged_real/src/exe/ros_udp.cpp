@@ -120,7 +120,7 @@ int main(int argc, char **argv)
 
     custom = Custom();
 
-    printf("Parameter /UDP_IP: %s\n", udp_ip);
+    printf("Parameter /UDP_IP: %s%s\n", udp_ip, nh.hasParam("/UDP_IP") ? "" : " (as default value)");
 
 
     if (strcasecmp(argv[1], "LOWLEVEL") == 0)
