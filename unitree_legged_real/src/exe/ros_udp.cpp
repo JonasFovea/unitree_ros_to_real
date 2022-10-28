@@ -114,7 +114,10 @@ int main(int argc, char **argv)
 
     ros::NodeHandle nh;
 
-    nh.param<char*>("/UDP_IP", udp_ip, "192.168.123.161");
+    std::string ip_string;
+    nh.param<std::string>("/UDP_IP", ip_string, "192.168.123.161");
+    strcpy(udp_ip, ip_string.c_str());
+
     custom = new Custom();
 
     printf("Parameter /UDP_IP: %s\n", udp_ip);
