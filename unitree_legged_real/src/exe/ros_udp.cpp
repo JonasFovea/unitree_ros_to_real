@@ -114,10 +114,10 @@ int main(int argc, char **argv)
 
     ros::NodeHandle nh;
 
-    nh.param<std::string>("/UDP_IP", udp_ip, "192.168.123.161");
+    nh.param<std::string>("/UDP_IP", udp_ip.c_str(), "192.168.123.161");
     custom = new Custom();
 
-    printf("Parameter /UDP_IP: %s\n", udp_ip);
+    printf("Parameter /UDP_IP: %s\n", udp_ip.c_str());
 
 
     if (strcasecmp(argv[1], "LOWLEVEL") == 0)
