@@ -29,7 +29,7 @@ public:
 public:
     Custom()
         : low_udp(LOWLEVEL),
-          high_udp(8090, udp_ip, 8082, sizeof(HighCmd), sizeof(HighState))
+          high_udp(8090, const_cast<const char*>(udp_ip), 8082, sizeof(HighCmd), sizeof(HighState))
     {
         high_udp.InitCmdData(high_cmd);
         low_udp.InitCmdData(low_cmd);
@@ -114,7 +114,7 @@ int main(int argc, char **argv)
 
     ros::NodeHandle nh;
 
-    nh.param<char*>("/UDP_IP", const_cast<const char*>(udp_ip), "192.168.123.161");
+    nh.param<char*>("/UDP_IP", udp_ip, "192.168.123.161");
     custom = new Custom();
 
     printf("Parameter /UDP_IP: %s\n", udp_ip);
