@@ -8,8 +8,12 @@
 #include <chrono>
 #include <pthread.h>
 #include <geometry_msgs/Twist.h>
+#include <string>
 
 using namespace UNITREE_LEGGED_SDK;
+
+char udp_ip[16];
+
 class Custom
 {
 public:
@@ -25,7 +29,7 @@ public:
 public:
     Custom()
         : low_udp(LOWLEVEL),
-          high_udp(8090, "192.168.123.161", 8082, sizeof(HighCmd), sizeof(HighState))
+          high_udp(8090, const_cast<const char*>(udp_ip), 8082, sizeof(HighCmd), sizeof(HighState))
     {
         high_udp.InitCmdData(high_cmd);
         low_udp.InitCmdData(low_cmd);
@@ -109,6 +113,15 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "ros_udp");
 
     ros::NodeHandle nh;
+
+    std::string ip_string;
+    nh.param<std::string>("/UDP_IP", ip_string, "192.168.123.161");
+    strcpy(udp_ip, ip_string.c_str());
+
+    custom = Custom();
+
+    printf("Parameter /UDP_IP: %s%s\n", udp_ip, nh.hasParam("/UDP_IP") ? "" : " (as default value)");
+
 
     if (strcasecmp(argv[1], "LOWLEVEL") == 0)
     {
