@@ -117,7 +117,7 @@ int main(int argc, char **argv)
     nh.param<char*>("/UDP_IP", const_cast<const char*>(udp_ip), "192.168.123.161");
     custom = new Custom();
 
-    printf("Parameter /UDP_IP: %s\n", udp_ip.c_str());
+    printf("Parameter /UDP_IP: %s\n", udp_ip);
 
 
     if (strcasecmp(argv[1], "LOWLEVEL") == 0)
