@@ -117,7 +117,7 @@ int main(int argc, char **argv)
     std::string ip_string;
     nh.param<std::string>("/UDP_IP", ip_string, "192.168.123.161");
     strcpy(udp_ip, ip_string.c_str());
-    printf("Variable udp_ip: %s", udp_ip);
+    printf("Variable udp_ip: %s\n", udp_ip);
 
     custom = Custom();
 
