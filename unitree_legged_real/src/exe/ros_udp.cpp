@@ -66,7 +66,7 @@ public:
     }
 };
 
-Custom custom;
+Custom* custom;
 
 ros::Subscriber sub_high;
 ros::Subscriber sub_low;
@@ -81,11 +81,11 @@ void highCmdCallback(const unitree_legged_msgs::HighCmd::ConstPtr &msg)
 {
     printf("highCmdCallback is running !\t%ld\n", ::high_count);
 
-    custom.high_cmd = rosMsg2Cmd(msg);
+    custom->high_cmd = rosMsg2Cmd(msg);
 
     unitree_legged_msgs::HighState high_state_ros;
 
-    high_state_ros = state2rosMsg(custom.high_state);
+    high_state_ros = state2rosMsg(custom->high_state);
 
     pub_high.publish(high_state_ros);
 
@@ -97,11 +97,11 @@ void lowCmdCallback(const unitree_legged_msgs::LowCmd::ConstPtr &msg)
 
     printf("lowCmdCallback is running !\t%ld\n", low_count);
 
-    custom.low_cmd = rosMsg2Cmd(msg);
+    custom->low_cmd = rosMsg2Cmd(msg);
 
     unitree_legged_msgs::LowState low_state_ros;
 
-    low_state_ros = state2rosMsg(custom.low_state);
+    low_state_ros = state2rosMsg(custom->low_state);
 
     pub_low.publish(low_state_ros);
 
@@ -117,10 +117,11 @@ int main(int argc, char **argv)
     std::string ip_string;
     nh.param<std::string>("/UDP_IP", ip_string, "192.168.123.161");
     strcpy(udp_ip, ip_string.c_str());
+    printf("Variable udp_ip: %s\n", udp_ip);
 
-    custom = Custom();
+    custom = new Custom();
 
-    printf("Parameter /UDP_IP: %s%s\n", udp_ip, nh.hasParam("/UDP_IP") ? "" : " (as default value)");
+//    printf("Parameter /UDP_IP: %s%s\n", udp_ip, nh.hasParam("/UDP_IP") ? "" : " (as default value)");
 
 
     if (strcasecmp(argv[1], "LOWLEVEL") == 0)
@@ -128,8 +129,8 @@ int main(int argc, char **argv)
         sub_low = nh.subscribe("low_cmd", 1, lowCmdCallback);
         pub_low = nh.advertise<unitree_legged_msgs::LowState>("low_state", 1);
 
-        LoopFunc loop_udpSend("low_udp_send", 0.002, 3, boost::bind(&Custom::lowUdpSend, &custom));
-        LoopFunc loop_udpRecv("low_udp_recv", 0.002, 3, boost::bind(&Custom::lowUdpRecv, &custom));
+        LoopFunc loop_udpSend("low_udp_send", 0.002, 3, boost::bind(&Custom::lowUdpSend, custom));
+        LoopFunc loop_udpRecv("low_udp_recv", 0.002, 3, boost::bind(&Custom::lowUdpRecv, custom));
 
         loop_udpSend.start();
         loop_udpRecv.start();
@@ -143,8 +144,8 @@ int main(int argc, char **argv)
         sub_high = nh.subscribe("high_cmd", 1, highCmdCallback);
         pub_high = nh.advertise<unitree_legged_msgs::HighState>("high_state", 1);
 
-        LoopFunc loop_udpSend("high_udp_send", 0.002, 3, boost::bind(&Custom::highUdpSend, &custom));
-        LoopFunc loop_udpRecv("high_udp_recv", 0.002, 3, boost::bind(&Custom::highUdpRecv, &custom));
+        LoopFunc loop_udpSend("high_udp_send", 0.002, 3, boost::bind(&Custom::highUdpSend, custom));
+        LoopFunc loop_udpRecv("high_udp_recv", 0.002, 3, boost::bind(&Custom::highUdpRecv, custom));
 
         loop_udpSend.start();
         loop_udpRecv.start();
