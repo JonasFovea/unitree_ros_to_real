@@ -27,9 +27,10 @@ public:
     LowState low_state = {0};
 
 public:
-    Custom()
+    Custom(){} // Default constructor for empty initialization at declaration
+    Custom( const char* ip)
         : low_udp(LOWLEVEL),
-          high_udp(8090, const_cast<const char*>(udp_ip), 8082, sizeof(HighCmd), sizeof(HighState))
+          high_udp(8090, ip, 8082, sizeof(HighCmd), sizeof(HighState))
     {
         high_udp.InitCmdData(high_cmd);
         low_udp.InitCmdData(low_cmd);
@@ -119,7 +120,7 @@ int main(int argc, char **argv)
     strcpy(udp_ip, ip_string.c_str());
     printf("Variable udp_ip: %s\n", udp_ip);
 
-    custom = Custom();
+    custom = Custom(const_cast<const char*>(udp_ip));
 
 //    printf("Parameter /UDP_IP: %s%s\n", udp_ip, nh.hasParam("/UDP_IP") ? "" : " (as default value)");
 
